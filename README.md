@@ -1,6 +1,6 @@
 # Chitthi demo video
 
-99 s explainer + live demo of [Chitthi](https://github.com/om-1115/chitthi), 1920×1080, with on-screen captions and a
+97 s explainer + live demo of [Chitthi](https://github.com/om-1115/chitthi), 1920×1080, light mode in the app's Pico CSS style, with on-screen captions and a
 scratch voiceover (macOS `say`, voice Tara). Output: `out/chitthi-demo.mp4`.
 
 ## Voiceover
@@ -37,4 +37,4 @@ Playwright expects a newer build.
 - `src/Composition.tsx`: scene order and lengths, demo spans and captions
 - `src/Scenes.tsx`: hook, problem, demo, how it works, OCR chart, offline, end card
 - `src/Screencast.tsx`: plays the captured frames inside a browser window
-- `src/theme.ts`: palette and type from `chitthi/web/index.html`
+- `src/theme.ts`: palette and type from the app's Pico CSS theme (`chitthi/web/vendor/pico.red.min.css`)

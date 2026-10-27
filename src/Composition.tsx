@@ -4,7 +4,7 @@ import { AbsoluteFill, Composition, Sequence, staticFile } from "remotion";
 import hindi from "../public/captures/archivist-hi.json";
 import seance from "../public/captures/seance-en.json";
 import { Demo, DemoProps, End, Hook, HowItWorks, OcrChart, Offline, Problem, demoLength } from "./Scenes";
-import { FPS, dark, paper } from "./theme";
+import { FPS, light } from "./theme";
 import VO from "./vo-durations.json";
 
 // Scratch voiceover (tools/vo.mjs, macOS `say`). A cue starts line `id` at frame `at` of its scene.
@@ -15,42 +15,42 @@ const voEnd = (c: Cue) => c.at + Math.ceil(VO[c.id] * FPS);
 // Spans are capture milliseconds; the wait for Gemma between them is cut and labelled.
 const SEANCE: DemoProps = {
   cap: seance,
-  c: dark,
+  c: light,
   kicker: "Live demo · séance mode",
-  a: { from: 3300, to: 9200 },
+  a: { from: 3000, to: 8900 },
   gap: 40,
-  gapLabel: "Gemma 4 reads the letters · 40 s skipped",
-  b: { from: 50710, to: 65361 },
-  answerZoom: { in: 0.2, out: 6.95 },
+  gapLabel: "Gemma 4 reads the letters · 38 s skipped",
+  b: { from: 47944, to: 61580 },
+  answerZoom: { in: 0.2, out: 6.2 },
   captions: [
     { from: 18, to: 172, text: "Ask Nehru directly, in séance mode" },
     { from: 222, to: 278, text: "He answers in the first person…" },
-    { from: 280, to: 421, text: "…and every underlined quote was found word-for-word" },
-    { from: 425, to: 515, text: "Each citation points to a passage…" },
-    { from: 519, to: 655, text: "…and opens the original 1929 scan" },
+    { from: 280, to: 401, text: "…and every highlighted quote was found word-for-word" },
+    { from: 405, to: 485, text: "Each citation points to a passage…" },
+    { from: 489, to: 624, text: "…and opens the original 1929 scan" },
   ],
 };
 const SEANCE_VO: Cue[] = [
   { id: "seance1", at: 18 },
   { id: "seance2", at: 222 },
   { id: "seance3", at: 280 },
-  { id: "seance4", at: 425 },
-  { id: "seance5", at: 519 },
+  { id: "seance4", at: 405 },
+  { id: "seance5", at: 489 },
 ];
 
 const HINDI: DemoProps = {
   cap: hindi,
-  c: paper,
+  c: light,
   kicker: "Live demo · हिन्दी",
-  a: { from: 3300, to: 7900 },
+  a: { from: 3000, to: 7600 },
   gap: 40,
-  gapLabel: "Gemma 4 reads the letters · 70 s skipped",
-  b: { from: 79246, to: 93321 },
+  gapLabel: "Gemma 4 reads the letters · 61 s skipped",
+  b: { from: 69836, to: 83905 },
   answerZoom: { in: 0.2, out: 6.45 },
   captions: [
     { from: 16, to: 134, text: "Archivist mode, answering in Hindi" },
     { from: 186, to: 308, text: "The same letters, in Premchand’s 1931 translation" },
-    { from: 310, to: 372, text: "Quotes are still checked word-for-word" },
+    { from: 315, to: 375, text: "Quotes are still checked word-for-word" },
     { from: 376, to: 458, text: "Citations work in every script…" },
     { from: 462, to: 598, text: "…down to the Hindi page scan" },
   ],
@@ -58,7 +58,7 @@ const HINDI: DemoProps = {
 const HINDI_VO: Cue[] = [
   { id: "hindi1", at: 16 },
   { id: "hindi2", at: 186 },
-  { id: "hindi3", at: 310 },
+  { id: "hindi3", at: 315 },
   { id: "hindi4", at: 376 },
   { id: "hindi5", at: 462 },
 ];
@@ -87,7 +87,7 @@ const TOTAL = SCENES.reduce((n, s) => n + len(s), 0);
 export const ChitthiDemo: React.FC = () => {
   let at = 0;
   return (
-    <AbsoluteFill style={{ backgroundColor: dark.bg }}>
+    <AbsoluteFill style={{ backgroundColor: light.bg }}>
       {SCENES.map(s => {
         const from = at;
         at += len(s);

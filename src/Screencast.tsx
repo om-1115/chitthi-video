@@ -69,13 +69,13 @@ export const ScreencastClip: React.FC<{ cap: Capture; a: Span; b: Span; gap: num
           }}
         >
           <svg width={90} height={90} viewBox="0 0 90 90">
-            <circle cx={45} cy={45} r={38} fill="none" stroke={c.line} strokeWidth={5} />
+            <circle cx={45} cy={45} r={38} fill="none" stroke="rgba(255,255,255,0.35)" strokeWidth={5} />
             <circle
               cx={45}
               cy={45}
               r={38}
               fill="none"
-              stroke={c.gold}
+              stroke="#ffffff"
               strokeWidth={5}
               strokeLinecap="round"
               strokeDasharray={239}
@@ -83,7 +83,7 @@ export const ScreencastClip: React.FC<{ cap: Capture; a: Span; b: Span; gap: num
               style={{ rotate: "-90deg", transformOrigin: "45px 45px" }}
             />
           </svg>
-          <div style={{ fontFamily: MONO, fontSize: 30, color: "#f3e4c8", letterSpacing: "0.06em" }}>{gapLabel}</div>
+          <div style={{ fontFamily: MONO, fontSize: 30, color: "#ffffff", letterSpacing: "0.04em" }}>{gapLabel}</div>
         </div>
       )}
     </div>
@@ -100,7 +100,7 @@ export const BrowserWindow: React.FC<{ c: Palette; children: React.ReactNode; wi
         borderRadius: 18,
         overflow: "hidden",
         border: `1.5px solid ${c.line}`,
-        boxShadow: "0 40px 90px rgba(0,0,0,0.45), 0 8px 24px rgba(0,0,0,0.25)",
+        boxShadow: "0 30px 80px rgba(24,28,37,0.14), 0 6px 18px rgba(24,28,37,0.08)",
         backgroundColor: c.surface,
       }}
     >
@@ -109,7 +109,7 @@ export const BrowserWindow: React.FC<{ c: Palette; children: React.ReactNode; wi
           <div key={col} style={{ width: 13, height: 13, borderRadius: 7, backgroundColor: col, opacity: 0.85 }} />
         ))}
         <div style={{ flex: 1, display: "flex", justifyContent: "center" }}>
-          <div style={{ fontFamily: MONO, fontSize: 17, color: c.faint, padding: "5px 22px", borderRadius: 8, backgroundColor: c.bg }}>
+          <div style={{ fontFamily: MONO, fontSize: 17, color: c.faint, padding: "5px 22px", borderRadius: 8, backgroundColor: c.bg, border: `1px solid ${c.line}` }}>
             localhost:8000
           </div>
         </div>

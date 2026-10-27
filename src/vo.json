@@ -7,7 +7,7 @@
     { "id": "problem2", "text": "Chit-thee answers only in the letters' own words." },
     { "id": "seance1", "text": "Here, we ask Nehru directly, in say-ahns mode." },
     { "id": "seance2", "text": "He answers in the first person," },
-    { "id": "seance3", "text": "and every underlined quote was found, word for word, in his letters." },
+    { "id": "seance3", "text": "and every highlighted quote was found, word for word, in his letters." },
     { "id": "seance4", "text": "Each citation points to a passage," },
     { "id": "seance5", "text": "and opens the original 1929 scan." },
     { "id": "how1", "text": "Each page becomes text: from the PDF itself, from Gemma's vision, or from Tesseract." },

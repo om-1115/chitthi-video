@@ -1,7 +1,7 @@
 // Records real demo clips of Chitthi (running on localhost:8000 against local Ollama).
 // Writes public/captures/<name>/<ms>.jpg screencast frames, <name>-*.png (2x stills) and <name>.json
 // (frame times + event times in ms). Recording pauses while Gemma thinks; the edit cuts that wait.
-//   node tools/capture.mjs
+//   node tools/capture.mjs [clip-name ...]   (default: all clips)
 import { chromium } from "playwright";
 import { mkdirSync, rmSync, writeFileSync } from "node:fs";
 
@@ -15,8 +15,19 @@ const CLIPS = [
   { name: "archivist-hi", mode: "archivist", lang: "hi", q: "संसार को पुस्तक क्यों कहा गया है?" },
 ];
 
+const only = process.argv.slice(2);
 const browser = await chromium.launch({ executablePath: CHROME });
-for (const clip of CLIPS) {
+// The demo is about verified quotes: re-take (up to 3 times) if Gemma's answer happens to quote nothing.
+for (const clip of CLIPS.filter(c => !only.length || only.includes(c.name))) {
+  for (let take = 1; take <= 3; take++) {
+    const marks = await record(clip);
+    console.log(clip.name, "take", take, "quotes:", marks);
+    if (marks > 0) break;
+  }
+}
+await browser.close();
+
+async function record(clip) {
   const ctx = await browser.newContext({ viewport: VIEW, deviceScaleFactor: 2 });
   const page = await ctx.newPage();
   const dir = `${OUT}/${clip.name}`;
@@ -63,6 +74,7 @@ for (const clip of CLIPS) {
   mark("answer");
   await page.waitForTimeout(4500);
   mark("answerDone");
+  const marks = await page.locator("#out .answer mark").count();
   await still("answer");
   await page.mouse.wheel(0, 260);
   await page.waitForTimeout(1500);
@@ -86,5 +98,5 @@ for (const clip of CLIPS) {
   await ctx.close();
   writeFileSync(`${OUT}/${clip.name}.json`, JSON.stringify({ ...clip, cite: n, events: ev, frames }, null, 2));
   console.log(clip.name, frames.length, "frames", JSON.stringify(ev));
+  return marks;
 }
-await browser.close();

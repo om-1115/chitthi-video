@@ -1,6 +1,6 @@
 import React from "react";
 import { AbsoluteFill, Easing, interpolate, useCurrentFrame, useVideoConfig } from "remotion";
-import { MONO, Palette, SERIF } from "./theme";
+import { MONO, Palette, SANS } from "./theme";
 
 const out = Easing.bezier(0.16, 1, 0.3, 1);
 const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
@@ -78,8 +78,9 @@ export const Captions: React.FC<{ items: Caption[]; c: Palette }> = ({ items, c 
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            fontFamily: SERIF,
-            fontSize: 44,
+            fontFamily: SANS,
+            fontSize: 42,
+            fontWeight: 500,
             color: c.ink,
             opacity: interpolate(frame, [it.from, it.from + 10, it.to - 8, it.to], [0, 1, 1, 0], clamp),
             translate: interpolate(frame, [it.from, it.from + 14], ["0px 14px", "0px 0px"], { ...clamp, easing: out }),
@@ -93,7 +94,7 @@ export const Captions: React.FC<{ items: Caption[]; c: Palette }> = ({ items, c 
 };
 
 export const Kicker: React.FC<{ c: Palette; children: React.ReactNode }> = ({ c, children }) => (
-  <div style={{ fontFamily: MONO, fontSize: 26, letterSpacing: "0.22em", textTransform: "uppercase", color: c.faint }}>
+  <div style={{ fontFamily: MONO, fontSize: 24, fontWeight: 600, letterSpacing: "0.16em", textTransform: "uppercase", color: c.faint }}>
     {children}
   </div>
 );

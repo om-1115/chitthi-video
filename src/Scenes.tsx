@@ -1,7 +1,7 @@
 import React from "react";
 import { AbsoluteFill, Easing, interpolate, useCurrentFrame, useVideoConfig } from "remotion";
 import { BrowserWindow, Capture, ScreencastClip, Span, Zoom, spanFrames } from "./Screencast";
-import { DEVA, MONO, Palette, SERIF, dark, paper } from "./theme";
+import { DEVA, MONO, Palette, SANS, light } from "./theme";
 import { Caption, Captions, Kicker, Rise, SceneFade, Underline } from "./ui";
 
 const out = Easing.bezier(0.16, 1, 0.3, 1);
@@ -13,20 +13,20 @@ const Center: React.FC<{ children: React.ReactNode; gap?: number }> = ({ childre
   </AbsoluteFill>
 );
 
-// Faint candle glow behind dark scenes, like the app.
+// Faint red wash behind title scenes, in the primary colour.
 const Glow: React.FC<{ c: Palette }> = ({ c }) => {
   const frame = useCurrentFrame();
   return (
     <AbsoluteFill
       style={{
-        background: `radial-gradient(ellipse 55% 45% at 50% ${interpolate(frame, [0, 300], [40, 46], clamp)}%, ${c.gold}22, transparent 70%)`,
+        background: `radial-gradient(ellipse 55% 45% at 50% ${interpolate(frame, [0, 300], [40, 46], clamp)}%, ${c.wax}12, transparent 70%)`,
       }}
     />
   );
 };
 
 export const Hook: React.FC = () => {
-  const c = dark;
+  const c = light;
   return (
     <SceneFade bg={c.bg}>
       <Glow c={c} />
@@ -35,13 +35,13 @@ export const Hook: React.FC = () => {
           <div style={{ fontFamily: DEVA, fontSize: 64, color: c.wax }}>चिट्ठी</div>
         </Rise>
         <Rise at={14}>
-          <div style={{ fontFamily: SERIF, fontSize: 132, color: c.ink, letterSpacing: "-0.01em" }}>Chitthi</div>
+          <div style={{ fontFamily: SANS, fontSize: 136, fontWeight: 800, color: c.ink, letterSpacing: "-0.03em" }}>Chitthi</div>
         </Rise>
         <Rise at={22}>
           <Underline at={30} color={c.wax} width={360} />
         </Rise>
         <Rise at={40}>
-          <div style={{ fontFamily: SERIF, fontSize: 52, color: c.dim, fontStyle: "italic" }}>
+          <div style={{ fontFamily: SANS, fontSize: 52, color: c.dim }}>
             Ask old letters a question.
           </div>
         </Rise>
@@ -51,7 +51,7 @@ export const Hook: React.FC = () => {
 };
 
 export const Problem: React.FC = () => {
-  const c = dark;
+  const c = light;
   const frame = useCurrentFrame();
   const strike = interpolate(frame, [112, 134], [0, 100], { ...clamp, easing: out });
   return (
@@ -59,7 +59,7 @@ export const Problem: React.FC = () => {
       <Glow c={c} />
       <Center gap={60}>
         <Rise at={6}>
-          <div style={{ fontFamily: SERIF, fontSize: 64, color: c.dim, textAlign: "center", lineHeight: 1.3 }}>
+          <div style={{ fontFamily: SANS, fontSize: 64, color: c.dim, textAlign: "center", lineHeight: 1.3 }}>
             Ask a chatbot about a historical figure
             <br />
             and it will happily{" "}
@@ -81,8 +81,8 @@ export const Problem: React.FC = () => {
           </div>
         </Rise>
         <Rise at={160}>
-          <div style={{ fontFamily: SERIF, fontSize: 84, color: c.ink, textAlign: "center", lineHeight: 1.15 }}>
-            Chitthi answers <em style={{ color: c.wax }}>only</em> in
+          <div style={{ fontFamily: SANS, fontSize: 84, fontWeight: 800, letterSpacing: "-0.02em", color: c.ink, textAlign: "center", lineHeight: 1.12 }}>
+            Chitthi answers <span style={{ color: c.wax }}>only</span> in
             <br />
             the letters’ own words.
           </div>
@@ -114,11 +114,10 @@ export const Demo: React.FC<DemoProps> = ({ cap, c, kicker, a, b, gap, gapLabel,
   const zIn = answerZoom ? bStart + answerZoom.in * fps : 0;
   const zOut = answerZoom ? bStart + answerZoom.out * fps : 0;
   const zoom: Zoom | undefined = answerZoom
-    ? { f: [zIn, zIn + 45, zOut - 22, zOut], s: [1, 1.3, 1.3, 1], origin: "50% 100%" }
+    ? { f: [zIn, zIn + 45, zOut - 22, zOut], s: [1, 1.15, 1.15, 1], origin: "50% 100%" }
     : undefined;
   return (
     <SceneFade bg={c.bg}>
-      {c === dark && <Glow c={c} />}
       <AbsoluteFill style={{ alignItems: "center", flexDirection: "column", paddingTop: 34, gap: 22 }}>
         <Kicker c={c}>{kicker}</Kicker>
         <div
@@ -144,7 +143,7 @@ const STEPS = [
 ];
 
 export const HowItWorks: React.FC<{ stepAt: number[] }> = ({ stepAt }) => {
-  const c = dark;
+  const c = light;
   const frame = useCurrentFrame();
   return (
     <SceneFade bg={c.bg}>
@@ -171,7 +170,7 @@ export const HowItWorks: React.FC<{ stepAt: number[] }> = ({ stepAt }) => {
                       alignItems: "center",
                       justifyContent: "center",
                       flexShrink: 0,
-                      color: active ? "#fff7ec" : c.dim,
+                      color: active ? "#ffffff" : c.dim,
                       backgroundColor: active ? c.wax : "transparent",
                       border: `2px solid ${active ? c.wax : c.line}`,
                       translate: "0px 6px",
@@ -180,8 +179,8 @@ export const HowItWorks: React.FC<{ stepAt: number[] }> = ({ stepAt }) => {
                     {i + 1}
                   </div>
                   <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                    <div style={{ fontFamily: SERIF, fontSize: 60, color: c.ink }}>{st.t}</div>
-                    <div style={{ fontFamily: SERIF, fontSize: 36, color: c.dim, fontStyle: "italic" }}>{st.s}</div>
+                    <div style={{ fontFamily: SANS, fontSize: 58, fontWeight: 700, color: c.ink }}>{st.t}</div>
+                    <div style={{ fontFamily: SANS, fontSize: 34, color: c.dim }}>{st.s}</div>
                   </div>
                 </div>
               </Rise>
@@ -202,7 +201,7 @@ const OCR = [
 ];
 
 export const OcrChart: React.FC = () => {
-  const c = dark;
+  const c = light;
   const frame = useCurrentFrame();
   const max = 24;
   return (
@@ -213,7 +212,7 @@ export const OcrChart: React.FC = () => {
           <Kicker c={c}>Hindi pages · word errors</Kicker>
         </Rise>
         <Rise at={8}>
-          <div style={{ fontFamily: SERIF, fontSize: 64, color: c.ink, lineHeight: 1.15 }}>
+          <div style={{ fontFamily: SANS, fontSize: 62, fontWeight: 800, letterSpacing: "-0.02em", color: c.ink, lineHeight: 1.12 }}>
             The OCR is chosen per page,
             <br />
             and measured.
@@ -225,7 +224,7 @@ export const OcrChart: React.FC = () => {
             const w = interpolate(frame, [at, at + 30], [0, r.v / max], { ...clamp, easing: out });
             return (
               <div key={r.k} style={{ display: "flex", alignItems: "center", gap: 28 }}>
-                <div style={{ width: 470, fontFamily: SERIF, fontSize: 38, color: r.best ? c.ink : c.dim, textAlign: "right" }}>{r.k}</div>
+                <div style={{ width: 470, fontFamily: SANS, fontSize: 38, color: r.best ? c.ink : c.dim, textAlign: "right" }}>{r.k}</div>
                 <div style={{ flex: 1, display: "flex", alignItems: "center", gap: 20 }}>
                   <div
                     style={{
@@ -245,7 +244,7 @@ export const OcrChart: React.FC = () => {
           })}
         </div>
         <Rise at={125}>
-          <div style={{ fontFamily: SERIF, fontSize: 34, color: c.faint, fontStyle: "italic", marginTop: 14 }}>
+          <div style={{ fontFamily: SANS, fontSize: 32, color: c.dim, marginTop: 14 }}>
             Gemma reads the vowel signs right but drops sentences and swaps in words — fatal when quotes must be exact.
           </div>
         </Rise>
@@ -255,17 +254,17 @@ export const OcrChart: React.FC = () => {
 };
 
 export const Offline: React.FC = () => {
-  const c = paper;
+  const c = light;
   return (
     <SceneFade bg={c.bg}>
       <Center gap={40}>
         <Rise at={4}>
-          <div style={{ fontFamily: SERIF, fontSize: 92, color: c.ink, textAlign: "center", lineHeight: 1.1 }}>
+          <div style={{ fontFamily: SANS, fontSize: 92, fontWeight: 800, letterSpacing: "-0.02em", color: c.ink, textAlign: "center", lineHeight: 1.1 }}>
             Nothing leaves this laptop.
           </div>
         </Rise>
         <Rise at={22}>
-          <div style={{ fontFamily: SERIF, fontSize: 44, color: c.dim, textAlign: "center", lineHeight: 1.4 }}>
+          <div style={{ fontFamily: SANS, fontSize: 44, color: c.dim, textAlign: "center", lineHeight: 1.4 }}>
             Gemma 4 and EmbeddingGemma run locally through Ollama.
             <br />
             Family letters stay with the family.
@@ -277,23 +276,23 @@ export const Offline: React.FC = () => {
 };
 
 export const End: React.FC = () => {
-  const c = dark;
+  const c = light;
   return (
     <SceneFade bg={c.bg} fade={14}>
       <Glow c={c} />
       <Center gap={26}>
         <Rise at={4}>
-          <div style={{ fontFamily: SERIF, fontSize: 120, color: c.ink }}>
+          <div style={{ fontFamily: SANS, fontSize: 120, fontWeight: 800, letterSpacing: "-0.03em", color: c.ink }}>
             Chitthi <span style={{ fontFamily: DEVA, color: c.wax, fontSize: 84 }}>चिट्ठी</span>
           </div>
         </Rise>
         <Rise at={14}>
-          <div style={{ fontFamily: SERIF, fontSize: 48, color: c.dim, fontStyle: "italic" }}>
+          <div style={{ fontFamily: SANS, fontSize: 48, color: c.dim }}>
             Let the letters speak for themselves.
           </div>
         </Rise>
         <Rise at={28}>
-          <div style={{ fontFamily: MONO, fontSize: 36, color: c.gold, marginTop: 30 }}>github.com/om-1115/chitthi</div>
+          <div style={{ fontFamily: MONO, fontSize: 36, color: c.wax, marginTop: 30 }}>github.com/om-1115/chitthi</div>
         </Rise>
       </Center>
     </SceneFade>
